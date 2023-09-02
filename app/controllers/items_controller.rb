@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   def new
   end
   
-  def create_table
+  def create
     Item.create(item_params)
   end
 
