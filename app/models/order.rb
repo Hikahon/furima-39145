@@ -1,6 +1,6 @@
 class Order
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :street_address, :building, :phone_number, :user_id, :item_id
+  attr_accessor :postal_code, :prefecture_id, :city, :street_address, :building, :phone_number, :user_id, :item_id, :buyer_id
 
   with_options presence: true do
     validates :user_id
@@ -13,9 +13,9 @@ class Order
     validates :phone_number, numericality: { only_integer: true, message: "is invalid. Input only number" }
   end
 
-  def save(user_id,params)
-    buyer = Buyer.create(user_id: user_id, item_id: params[:item_id])
+  def save(user_id, item_id)
+    buyer = Buyer.create(user_id: user_id, item_id: item_id)
     ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, 
-      city: city, street_address: street_address, building: building, phone_number: phone_number, buyer_id: buyer.id)
+      city: city, street_address: street_address, building: building, phone_number: phone_number, buyer_id: buyer_id)
   end
 end
