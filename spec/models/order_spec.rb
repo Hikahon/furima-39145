@@ -33,17 +33,17 @@ RSpec.describe Order, type: :model do
       it 'postal_codeにハイフンがないと購入できない' do
         @order.postal_code = '1234567'
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'postal_codeは3桁ハイフン4桁の並びでなければ購入できない' do
         @order.postal_code = '1234-567'
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'postal_codeはハイフンを含んでいても全角では購入できない' do
         @order.postal_code = '１２３-４５６７'
         @order.valid?
-        expect(@order.errors.full_messages).to include("Postal code is invalid. Enter it as follows (e.g. 123-4567)")
+        expect(@order.errors.full_messages).to include('Postal code is invalid. Enter it as follows (e.g. 123-4567)')
       end
       it 'prefectureが未選択では購入できない' do
         @order.prefecture_id = 1
@@ -68,17 +68,17 @@ RSpec.describe Order, type: :model do
       it 'phone_numberは10桁以上でなければ購入できない' do
         @order.phone_number = '0123456'
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number is too short")
+        expect(@order.errors.full_messages).to include('Phone number is too short')
       end
       it 'phone_numberにハイフンを含んでいると購入できない' do
         @order.phone_number = '080-1234-56'
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
       it 'phone_numberが全角では購入できない' do
         @order.phone_number = '０１２３４５６７８９'
         @order.valid?
-        expect(@order.errors.full_messages).to include("Phone number is invalid. Input only number")
+        expect(@order.errors.full_messages).to include('Phone number is invalid. Input only number')
       end
     end
   end
