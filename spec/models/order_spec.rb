@@ -65,10 +65,15 @@ RSpec.describe Order, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberは10桁以上でなければ購入できない' do
+      it 'phone_numberが9桁以下では購入できない' do
         @order.phone_number = '0123456'
         @order.valid?
-        expect(@order.errors.full_messages).to include('Phone number is too short')
+        expect(@order.errors.full_messages).to include('Phone number is too short (minimum is 10 characters)')
+      end
+      it 'phone_numberが12桁以上では購入できない' do
+        @order.phone_number = '012345678910'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
       it 'phone_numberにハイフンを含んでいると購入できない' do
         @order.phone_number = '080-1234-56'
@@ -79,6 +84,16 @@ RSpec.describe Order, type: :model do
         @order.phone_number = '０１２３４５６７８９'
         @order.valid?
         expect(@order.errors.full_messages).to include('Phone number is invalid. Input only number')
+      end
+      it 'userが紐付いていなければ保存できない' do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていなければ保存できない' do
+        @order.item_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

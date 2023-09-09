@@ -4,8 +4,6 @@ FactoryBot.define do
       address { Gimei.address }
     end
     token { 'tok_abcdefghijk00000000000000000' }
-    item_id { 1 }
-    user_id { 1 }
     postal_code { Faker::Number.between(from: 100, to: 999).to_s + '-' + Faker::Number.between(from: 1000, to: 9999).to_s }
     prefecture_id { 2 }
     city { address.city.kanji }
