@@ -11,13 +11,13 @@ class Order
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :street_address
-    validates :phone_number, length: { minimum: 10, maximum: 11, message: 'is too short' }
+    validates :phone_number, length: { minimum: 10, maximum: 11 }
     validates :phone_number, numericality: { only_integer: true, message: 'is invalid. Input only number' }
   end
 
   def save(params, user_id)
     buyer = Buyer.create(user_id: user_id, item_id: params[:item_id])
     ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id,
-                           city: city, street_address: street_address, building: building, phone_number: phone_number, buyer_id: buyer_id)
+                           city: city, street_address: street_address, building: building, phone_number: phone_number, buyer_id: buyer.id)
   end
 end
