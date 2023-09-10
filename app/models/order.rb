@@ -12,8 +12,8 @@ class Order
     validates :city
     validates :street_address
     validates :phone_number, length: { minimum: 10, maximum: 11 }
-    validates :phone_number, numericality: { only_integer: true, message: 'is invalid. Input only number' }
   end
+    validates :phone_number, numericality: { only_integer: true, message: 'is invalid. Input only number' }
 
   def save(params, user_id)
     buyer = Buyer.create(user_id: user_id, item_id: params[:item_id])
